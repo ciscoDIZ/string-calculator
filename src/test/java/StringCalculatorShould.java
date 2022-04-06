@@ -11,5 +11,10 @@ public class StringCalculatorShould {
         StringCalculator stringCalculator = new StringCalculator();
         assertEquals(expected, stringCalculator.addition("1,2"));
     }
-
+    @Test
+    public void for_empty_string_should_not_add() {
+        int expected = 0;
+        StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(expected, stringCalculator.addition(""));
+    }
 }

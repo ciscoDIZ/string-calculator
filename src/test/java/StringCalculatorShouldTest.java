@@ -44,4 +44,9 @@ public class StringCalculatorShouldTest {
         int expected = 6;
         assertEquals(expected, new StringCalculator().operate("//[***]\n1***2***3"));
     }
+    @Test
+    public void allow_multiple_delimiters() throws NegativesNotAllowed {
+        int expected = 6;
+        assertEquals(expected, new StringCalculator().operate("//[;][*]\n1;2*3"));
+    }
 }

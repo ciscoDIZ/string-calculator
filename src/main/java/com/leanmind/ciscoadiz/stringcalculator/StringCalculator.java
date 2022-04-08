@@ -46,15 +46,24 @@ public class StringCalculator {
     }
 
     private String[] determinateSeparator(String[] expressionLines) {
-        Pattern separatorPatter = Pattern.compile("//\\[?[^A-z0-9]+]?");
+        Pattern separatorPatter = Pattern.compile("(//)(\\[?[^A-z0-9]+]?)+");
         Matcher separatorMatcher = separatorPatter.matcher(expressionLines[0]);
+
         if (separatorMatcher.find()) {
-            separator = separatorMatcher.group().split("//")[1];
-            if (separator.matches("[\\[][\\D]+[]]")) {
-                separator = separator.substring(1, separator.length()-1);
+            this.separator = separatorMatcher.group(0);
+            this.separator = this.separator.substring(2);
+            if (this.separator.matches("[\\[][\\D]+[]]")) {
+                this.separator = this.separator.substring(1, this.separator.length()-1);
             }
-            if (separator.length() > 1) {
-                separator = "["+separator.charAt(0)+"]{"+separator.length()+"}";
+            String[] separators = separator.split("]\\[");
+            if (separators.length > 1) {
+                separator = Stream.of(separators).reduce("", String::concat);
+                separator = "["+separator+"]";
+                expressionLines = Arrays.copyOfRange(expressionLines, 1, expressionLines.length);
+                return expressionLines;
+            }
+            if (this.separator.length() > 1) {
+                this.separator = "["+this.separator.charAt(0)+"]{"+this.separator.length()+"}";
             }
             expressionLines = Arrays.copyOfRange(expressionLines, 1, expressionLines.length);
         }

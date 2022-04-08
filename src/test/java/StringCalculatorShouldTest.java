@@ -39,4 +39,9 @@ public class StringCalculatorShouldTest {
         int expected = 2;
         assertEquals(expected, new StringCalculator().operate("1001,2"));
     }
+    @Test
+    public void delimiters_can_be_of_any_length() throws NegativesNotAllowed {
+        int expected = 6;
+        assertEquals(expected, new StringCalculator().operate("//[***]\n1***2***3"));
+    }
 }

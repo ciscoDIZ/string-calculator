@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 public class StringCalculator {
 
-    private final String separator;
+    private String separator;
 
     public StringCalculator() {
         separator = ",";
@@ -26,6 +26,12 @@ public class StringCalculator {
 
     public int operate(String expression) {
         String[] expressionLines = expression.split("\n");
+        Pattern separatorPatter = Pattern.compile("//[^A-z0-9]");
+        Matcher separatorMatcher = separatorPatter.matcher(expressionLines[0]);
+        if (separatorMatcher.find()) {
+            separator = separatorMatcher.group().split("//")[1];
+            expressionLines = Arrays.copyOfRange(expressionLines, 1, expressionLines.length);
+        }
         return addition(expressionLines, expressionLines.length-1);
     }
 }

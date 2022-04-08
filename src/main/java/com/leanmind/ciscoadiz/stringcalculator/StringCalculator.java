@@ -1,5 +1,6 @@
 package com.leanmind.ciscoadiz.stringcalculator;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -51,13 +52,27 @@ public class StringCalculator {
 
     private String determinateSeparator(String expression) {
         String[] splitExpressionLines = expression.split("\n");
-        String separatorPattern = "(//)(\\[?[\\D]+]?)";
-        if (splitExpressionLines[0].matches(separatorPattern)) {
-            Pattern regExp = Pattern.compile(separatorPattern);
-            Matcher matcher = regExp.matcher(splitExpressionLines[0]);
-            if (matcher.find()) {
-                separator = matcher.group(2);
-                String escapableCharacter = "(\\*|\\+|\\.|\\^|\\{|\\||\\[|\\)|\\(\\?|])+";
+        String singleSeparatorPattern = "(//)(\\[?[\\D]+]?)";
+        String multipleSeparatorPattern = "(\\[?[^/]([^\\[][*\\D]+[^]])]?)";
+        if (splitExpressionLines[0].matches(singleSeparatorPattern)) {
+            Pattern singleSeparator = Pattern.compile(singleSeparatorPattern);
+            Matcher singleSeparatorMatcher = singleSeparator.matcher(splitExpressionLines[0]);
+            Pattern multipleSeparator = Pattern.compile(multipleSeparatorPattern);
+            Matcher multipleSeparatorMatcher = multipleSeparator.matcher(splitExpressionLines[0]);
+            if (multipleSeparatorMatcher.find()) {
+                separator = multipleSeparatorMatcher.group();
+                separator = separator.substring(1, separator.length()-1);
+                String[] separators = separator.split("]\\[");
+                separator = "[";
+                for (String separator : separators) {
+                    this.separator += separator;
+                }
+                separator += "]+";
+                return expression.split("\n")[1];
+            }
+            if (singleSeparatorMatcher.find()) {
+                separator = singleSeparatorMatcher.group(2);
+                String escapableCharacter = "((\\[)?(\\*|\\+|\\.|\\^|\\{|\\||\\[|\\)|\\(\\?|])+(])?)+";
                 if (separator.matches(escapableCharacter)) {
                     StringBuilder separatorBuilder = new StringBuilder();
                     separator = separatorBuilder
@@ -67,9 +82,7 @@ public class StringCalculator {
                             .toString();
                 }
             }
-            //System.out.println(Arrays.toString(splitExpressionLines));
             expression = splitExpressionLines[1];
-
         }
         return expression;
     }

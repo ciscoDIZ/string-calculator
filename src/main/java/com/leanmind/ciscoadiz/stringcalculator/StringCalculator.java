@@ -2,7 +2,6 @@ package com.leanmind.ciscoadiz.stringcalculator;
 
 import com.leanmind.ciscoadiz.stringcalculator.exception.NegativesNotAllowed;
 
-import java.awt.*;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,13 +21,20 @@ public class StringCalculator {
             return 0;
         }
         String[] next = Arrays.copyOfRange(expressions, 0, expressions.length-1);
-
-        int[] negatives = Stream.of(expressions[i].split(separator)).mapToInt(Integer::parseInt).filter(n-> n < 0).toArray();
-        if (negatives.length > 0) {
-            throw new NegativesNotAllowed("no se puede sumar números negativos. números afectados:", negatives);
-        }
-        int currentValue = Stream.of(expressions[i].split(separator)).mapToInt(Integer::parseInt).sum();
+        String exceptionMessage = "you can't add up negative numbers. affected numbers:";
+        errorHandler(exceptionMessage, expressions[i]);
+        int currentValue = Stream.of(expressions[i].split(separator))
+                .mapToInt(Integer::parseInt)
+                .filter(n -> !(n > 1000))
+                .sum();
         return addition(next, i-1) + currentValue;
+    }
+
+    private void errorHandler(String exceptionMessage, String expressions) throws NegativesNotAllowed {
+        int[] negatives = Stream.of(expressions.split(separator)).mapToInt(Integer::parseInt).filter(n-> n < 0).toArray();
+        if (negatives.length > 0) {
+            throw new NegativesNotAllowed(exceptionMessage, negatives);
+        }
     }
 
     public int operate(String expression) throws NegativesNotAllowed {

@@ -39,12 +39,17 @@ public class StringCalculator {
 
     public int operate(String expression) throws NegativesNotAllowed {
         String[] expressionLines = expression.split("\n");
+        expressionLines = determinateSeparator(expressionLines);
+        return addition(expressionLines, expressionLines.length-1);
+    }
+
+    private String[] determinateSeparator(String[] expressionLines) {
         Pattern separatorPatter = Pattern.compile("//[^A-z0-9]");
         Matcher separatorMatcher = separatorPatter.matcher(expressionLines[0]);
         if (separatorMatcher.find()) {
             separator = separatorMatcher.group().split("//")[1];
             expressionLines = Arrays.copyOfRange(expressionLines, 1, expressionLines.length);
         }
-        return addition(expressionLines, expressionLines.length-1);
+        return expressionLines;
     }
 }

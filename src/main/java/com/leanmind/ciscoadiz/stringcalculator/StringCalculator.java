@@ -7,13 +7,18 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class StringCalculator {
+    private int addition(String[] expressions, int i) {
 
-
+        if (expressions.length < 1) {
+            return 0;
+        }
+        String[] next = Arrays.copyOfRange(expressions, 0, expressions.length-1);
+        int currentValue = Stream.of(expressions[i].split(",")).mapToInt(Integer::parseInt).sum();
+        return addition(next, i-1) + currentValue;
+    }
 
     public int operate(String expression) {
         String[] expressionLines = expression.split("\n");
-        return Stream.of(expressionLines[0].split(","))
-                .mapToInt(Integer::parseInt)
-                .sum();
+        return addition(expressionLines, expressionLines.length-1);
     }
 }

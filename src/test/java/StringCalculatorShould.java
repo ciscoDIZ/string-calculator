@@ -11,4 +11,10 @@ public class StringCalculatorShould {
         int expected = 3;
         assertEquals(expected, new StringCalculator().operate("1,2"));
     }
+    @Test
+    public void allow_the_operate_method_to_handle_new_lines_between_numbers() {
+        int expected = 6;
+        assertEquals(expected, new StringCalculator().operate("1\n2,3"));
+    }
+
 }

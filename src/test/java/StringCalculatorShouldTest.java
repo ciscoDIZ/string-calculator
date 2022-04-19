@@ -8,9 +8,14 @@ import static org.junit.Assert.*;
 
 public class StringCalculatorShouldTest {
     @Test
-    public void operate_can_take_up_to_two_numbers_separated_by_commas() throws NegativesNotAllowed {
+    public void sum_numbers_in_can_take_up_to_two_numbers_separated_by_commas() throws NegativesNotAllowed {
         int expected = 3;
         assertEquals(expected, new StringCalculator().sumNumbersIn("1,2"));
+    }
+    @Test
+    public void sum_numbers_in_return_zero_for_empty_string() {
+        int expected = 0;
+        assertEquals(expected, new StringCalculator().sumNumbersIn(""));
     }
     /*@Test
     public void sum_numbers_in_allow_sum_indeterminate_numbers_separated_by_commas() {

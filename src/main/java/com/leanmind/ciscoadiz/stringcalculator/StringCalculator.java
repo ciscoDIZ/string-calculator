@@ -11,9 +11,12 @@ public class StringCalculator {
 
 
     public int sumNumbersIn(String expression) {
-        Integer[] numbers = Stream.of(expression.split(","))
+        Integer[] numbers = (!expression.isEmpty())?Stream.of(expression.split(","))
                 .map(Integer::parseInt)
-                .toArray(Integer[]::new);
+                .toArray(Integer[]::new):new Integer[0];
+        if (numbers.length < 1) {
+            return 0;
+        }
         return numbers[0] + numbers[1];
     }
 

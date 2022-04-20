@@ -8,16 +8,21 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class StringCalculator {
-
-
-    public int sumNumbersIn(String expression) {
-        Integer[] numbers = (!expression.isEmpty())?Stream.of(expression.split(","))
-                .map(Integer::parseInt)
-                .toArray(Integer[]::new):new Integer[0];
+    private int sum(Integer[] numbers) {
         if (numbers.length < 1) {
             return 0;
         }
-        return numbers[0] + numbers[1];
+        int current = numbers[0];
+        Integer[] next = Arrays.copyOfRange(numbers, 1, numbers.length);
+        return sum(next) + current;
+    }
+
+    public int sumNumbersIn(String expression) {
+        Integer[] numbers = (!expression.isEmpty())? Arrays.stream(expression.split(","))
+                .map(Integer::parseInt)
+                .toArray(Integer[]::new):new Integer[0];
+
+        return sum(numbers);
     }
 
 }

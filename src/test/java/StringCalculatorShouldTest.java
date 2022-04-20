@@ -17,12 +17,12 @@ public class StringCalculatorShouldTest {
         int expected = 0;
         assertEquals(expected, new StringCalculator().sumNumbersIn(""));
     }
-    /*@Test
+    @Test
     public void sum_numbers_in_allow_sum_indeterminate_numbers_separated_by_commas() {
         int expected = 6;
         assertEquals(expected, new StringCalculator().sumNumbersIn("1,2,3"));
     }
-    @Test
+    /*@Test
     public void allow_the_operate_method_to_handle_new_lines_between_numbers() throws NegativesNotAllowed {
         int expected = 6;
         assertEquals(expected, new StringCalculator().sumNumbersIn("1\n2,3"));

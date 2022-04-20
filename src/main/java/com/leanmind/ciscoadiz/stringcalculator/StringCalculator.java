@@ -8,6 +8,26 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class StringCalculator {
+    public int sumNumbersIn(String expression) {
+
+        String[] expressions = expression.split("\n");
+        Pattern delimiterRegExp = Pattern.compile("(//)(\\D)");
+        Matcher delimiterMatcher = delimiterRegExp.matcher(expressions[0]);
+        String delimiter;
+        if (delimiterMatcher.find()) {
+            delimiter = delimiterMatcher.group(2);
+            expressions = Arrays.copyOfRange(expressions, 1, expressions.length);
+        }else {
+            delimiter = ",";
+        }
+
+        Integer[] numbers = (!expression.isEmpty()) ? Arrays.stream(expressions)
+                .flatMap(e -> Arrays.stream(e.split(delimiter)).map(Integer::parseInt))
+                .toArray(Integer[]::new):new Integer[0];
+
+        return sum(numbers);
+    }
+
     private int sum(Integer[] numbers) {
         if (numbers.length == 1) {
             return numbers[0];
@@ -19,13 +39,4 @@ public class StringCalculator {
         Integer[] next = Arrays.copyOfRange(numbers, 1, numbers.length);
         return sum(next) + current;
     }
-
-    public int sumNumbersIn(String expression) {
-        Integer[] numbers = (!expression.isEmpty()) ? Arrays.stream(expression.split("\n"))
-                .flatMap(e -> Arrays.stream(e.split(",")).map(Integer::parseInt))
-                .toArray(Integer[]::new):new Integer[0];
-
-        return sum(numbers);
-    }
-
 }

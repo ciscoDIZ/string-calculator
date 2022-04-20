@@ -23,17 +23,17 @@ public class StringCalculatorShouldTest {
         assertEquals(expected, new StringCalculator().sumNumbersIn("1,2,3"));
     }
     @Test
-    public void c() throws NegativesNotAllowed {
+    public void allow_the_sum_numbers_in_method_to_handle_new_lines_between_numbers() throws NegativesNotAllowed {
         int expected = 6;
         assertEquals(expected, new StringCalculator().sumNumbersIn("1\n2,3"));
     }
-    /*@Test
+    @Test
     public void allow_different_separator() throws NegativesNotAllowed {
         int expected = 6;
         assertEquals(expected, new StringCalculator().sumNumbersIn("//;\n1;2;3"));
 
     }
-    @Test
+    /*@Test
     public void negative_number_will_throw_an_exception_negatives_not_allowed() {
         Throwable negativesNotAllowed = assertThrows(
                 NegativesNotAllowed.class,
@@ -44,7 +44,7 @@ public class StringCalculatorShouldTest {
                 negativesNotAllowed.getMessage()
         );
     }
-    @Test
+    /*@Test
     public void numbers_bigger_than_1000_should_be_ignored() throws NegativesNotAllowed {
         int expected = 2;
         assertEquals(expected, new StringCalculator().sumNumbersIn("1001,2"));

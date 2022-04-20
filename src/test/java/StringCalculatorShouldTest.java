@@ -22,12 +22,12 @@ public class StringCalculatorShouldTest {
         int expected = 6;
         assertEquals(expected, new StringCalculator().sumNumbersIn("1,2,3"));
     }
-    /*@Test
-    public void allow_the_operate_method_to_handle_new_lines_between_numbers() throws NegativesNotAllowed {
+    @Test
+    public void c() throws NegativesNotAllowed {
         int expected = 6;
         assertEquals(expected, new StringCalculator().sumNumbersIn("1\n2,3"));
     }
-    @Test
+    /*@Test
     public void allow_different_separator() throws NegativesNotAllowed {
         int expected = 6;
         assertEquals(expected, new StringCalculator().sumNumbersIn("//;\n1;2;3"));

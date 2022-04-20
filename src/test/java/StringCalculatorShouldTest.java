@@ -13,12 +13,12 @@ public class StringCalculatorShouldTest {
         assertEquals(expected, new StringCalculator().sumNumbersIn("1,2"));
     }
     @Test
-    public void sum_numbers_in_return_zero_for_empty_string() {
+    public void sum_numbers_in_return_zero_for_empty_string() throws NegativesNotAllowed {
         int expected = 0;
         assertEquals(expected, new StringCalculator().sumNumbersIn(""));
     }
     @Test
-    public void sum_numbers_in_allow_sum_indeterminate_numbers_separated_by_commas() {
+    public void sum_numbers_in_allow_sum_indeterminate_numbers_separated_by_commas() throws NegativesNotAllowed {
         int expected = 6;
         assertEquals(expected, new StringCalculator().sumNumbersIn("1,2,3"));
     }
@@ -33,7 +33,7 @@ public class StringCalculatorShouldTest {
         assertEquals(expected, new StringCalculator().sumNumbersIn("//;\n1;2;3"));
 
     }
-    /*@Test
+    @Test
     public void negative_number_will_throw_an_exception_negatives_not_allowed() {
         Throwable negativesNotAllowed = assertThrows(
                 NegativesNotAllowed.class,
@@ -44,7 +44,7 @@ public class StringCalculatorShouldTest {
                 negativesNotAllowed.getMessage()
         );
     }
-    /*@Test
+    @Test
     public void numbers_bigger_than_1000_should_be_ignored() throws NegativesNotAllowed {
         int expected = 2;
         assertEquals(expected, new StringCalculator().sumNumbersIn("1001,2"));
@@ -54,7 +54,7 @@ public class StringCalculatorShouldTest {
         int expected = 6;
         assertEquals(expected, new StringCalculator().sumNumbersIn("//[***]\n1***2***3"));
     }
-    @Test
+    /*@Test
     public void allow_multiple_delimiters() throws NegativesNotAllowed {
         int expected = 6;
         assertEquals(expected, new StringCalculator().sumNumbersIn("//[;][*]\n1;2*3"));

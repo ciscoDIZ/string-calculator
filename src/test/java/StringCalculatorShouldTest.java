@@ -54,9 +54,9 @@ public class StringCalculatorShouldTest {
         int expected = 6;
         assertEquals(expected, new StringCalculator().sumNumbersIn("//[***]\n1***2***3"));
     }
-    /*@Test
+    @Test
     public void allow_multiple_delimiters() throws NegativesNotAllowed {
         int expected = 6;
         assertEquals(expected, new StringCalculator().sumNumbersIn("//[;][*]\n1;2*3"));
-    }*/
+    }
 }

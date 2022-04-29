@@ -22,7 +22,7 @@ public class StringCalculator {
         final Integer[] numbers = (!expression.isEmpty()) ? Arrays.stream(expressions)
                 .flatMap(e -> Arrays.stream(e.split(delimiter)).map(Integer::parseInt))
                 .filter(n -> n <= 1000)
-                .toArray(Integer[]::new):new Integer[0];
+                .toArray(Integer[]::new) : new Integer[0];
         return sum(numbers);
     }
 
@@ -30,13 +30,13 @@ public class StringCalculator {
         final String delimiter;
         final String wrappedDelimiter = delimiterMatcher.group(1);
         final char delimiterFistPlace = wrappedDelimiter.charAt(0);
-        final char delimiterLastPlace = wrappedDelimiter.charAt(wrappedDelimiter.length()-1);
-        final boolean isRegExp = delimiterFistPlace=='[' && delimiterLastPlace == ']';
-        final String unwrappedDelimiter =(isRegExp)? wrappedDelimiter.substring(1, wrappedDelimiter.length() - 1) :
+        final char delimiterLastPlace = wrappedDelimiter.charAt(wrappedDelimiter.length() - 1);
+        final boolean isRegExp = delimiterFistPlace == '[' && delimiterLastPlace == ']';
+        final String unwrappedDelimiter = (isRegExp) ? wrappedDelimiter.substring(1, wrappedDelimiter.length() - 1) :
                 wrappedDelimiter;
         final String[] splitForMultipleDelimiters = unwrappedDelimiter.split("]\\[");
         if (splitForMultipleDelimiters.length > 1) {
-            delimiter ="["+Arrays.stream(splitForMultipleDelimiters).reduce(String::concat).get()+"]";
+            delimiter = "[" + Arrays.stream(splitForMultipleDelimiters).reduce(String::concat).get() + "]";
         }else {
             delimiter = (!isRegExp) ?
                     unwrappedDelimiter :

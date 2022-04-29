@@ -38,7 +38,9 @@ public class StringCalculator {
         if (splitForMultipleDelimiters.length > 1) {
             delimiter ="["+Arrays.stream(splitForMultipleDelimiters).reduce(String::concat).get()+"]";
         }else {
-            delimiter = (!isRegExp) ? unwrappedDelimiter : "[" + unwrappedDelimiter + "]{" + unwrappedDelimiter.length() + "}";
+            delimiter = (!isRegExp) ?
+                    unwrappedDelimiter :
+                    "[" + unwrappedDelimiter + "]{" + unwrappedDelimiter.length() + "}";
         }
         return delimiter;
     }
